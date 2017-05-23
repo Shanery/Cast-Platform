@@ -1,7 +1,7 @@
 <template>
 	<ul>
 		
-		<li v-for="item in checklist">
+		<li v-for="item in checklist" v-if="item.isChecked">
 			{{ item.title }}
 		</li>
 		
