@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Testing</title>
+</head>
+<body>
+
+	Hello do you read me
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+	var data = null;
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === 4) {
+        console.log(this.responseText);
+      }
+    });
+
+    xhr.open("GET", "http://localhost:2480/connect/conceptmapper");
+    xhr.setRequestHeader("authorization", "Basic cm9vdDp3YWZmbDNjMHB0M3I=");
+    xhr.setRequestHeader("access-control-allow-origin", "http://localhost:2480");
+    xhr.setRequestHeader("cache-control", "no-cache");
+
+    xhr.send(data);
+		// var config = {
+	 //    	headers: {'Access-Control-Allow-Origin': '*',
+		//     proxy: {
+		// 	    host: '127.0.0.1',
+		// 	    port: 2480,
+		// 	    auth: {
+		// 	      username: 'root',
+		// 	      password: 'waffl3c0pt3r'
+		// 	    }
+		// 	  }
+		// 	}
+		// };
+
+		// axios({
+		// method:'get',
+		// url:'http://localhost:2480', config
+		// })
+		// .then(function(response) {
+		// 	console.log(response.data)
+		// });
+	</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+OrientDB Calls
+
+
+// http://orientdb.com/docs/2.2.x/Fetching-Strategies.html
+"SELECT @this.toJSON('fetchPlan:<plan>') FROM <r-id>"
+
+
+// Create Vertex or Edge
+"CREATE VERTEX <vertex-class> CONTENT {JSON Object}"
+"CREATE VERTEX [<class>] [SET <field> = <expression>[,]*]"
+
+
+// Add link to a list
+"UPDATE <edited-r-id> ADD <list-name> = <added-r-id>"
+

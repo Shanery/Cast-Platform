@@ -1,0 +1,24 @@
+
+// Field
+{
+	"title": "String",
+	"info": {
+		"objectOfStudy": "Object",
+		"description": "String",
+		"type": "String",
+		"basicModels": [],
+		"goalsOfStudy": [
+			{
+				"goal": {"Object"},
+				"linkedApproaches": {}
+			}
+		]
+
+	},
+
+}
+
+//Object of Study
+{
+	"objectOfStudy": "Object"
+}
