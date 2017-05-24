@@ -6,7 +6,12 @@
     
 
     <!-- Display card for any settings which are requested and checked -->
-    <display-card v-for="view in requestedViews" v-if="view.checked && selected.item.hasOwnProperty(view.title.toLowerCase())" :cardInfo="selected.item[view.title.toLowerCase()]" :cardTitle="view.title" :key="view.title"></display-card>
+    <div v-for="item in displayableContent"> 
+      {{ item.value }}
+    </div>
+    <div v-for="item in displayableCards"> 
+      <display-card :cardTitle="item.key.toUpperCase()" :cardInfo="item.value" :hasFooter="true"></display-card>
+    </div>
 
   </div>
 
@@ -27,6 +32,40 @@ export default {
     }
   },
   computed: {
+    displayableContent() {
+      var keys = Object.keys(this.selected.item);
+      
+      let views = {};
+      var i;
+
+      for (i in keys) {
+        if (typeof(this.selected.item[keys[i]]) === 'string') {
+          views[keys[i]] =  {
+            key: keys[i],
+            value: this.selected.item[keys[i]]
+          }
+        }
+      }
+
+      return views;
+    },
+    displayableCards() {
+      var keys = Object.keys(this.selected.item);
+      
+      let views = {};
+      var i;
+
+      for (i in keys) {
+        if (typeof(this.selected.item[keys[i]]) === 'object') {
+          views[keys[i]] =  {
+            key: keys[i],
+            value: this.selected.item[keys[i]]
+          }
+        }
+      }
+
+      return views;
+    }
   },
   methods: {
     hasProp: function(property) {
@@ -73,9 +112,10 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
   h1 {
-    font-size: 16px;
+    font-size: 21px;
+    font-weight: 400;
   }
 
   .display {

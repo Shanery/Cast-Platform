@@ -1,0 +1,42 @@
+{
+    "title": "",
+    "description": "",
+    "objectOfStudy": [],
+    "goals": {
+        "externalGoals": {
+            "@type": "d",
+            "@version": 0,
+            "povs": {
+                "description": "",
+                "title": "Point of Views",
+                "list": [
+                    
+                ]
+            }
+        },
+        "internalGoals": {
+            "@type": "d",
+            "@version": 0,
+            "mechanisms": {
+                "subGoals": [
+                    
+                ],
+                "superGoals": [
+                    
+                ],
+                "description": "Through what mechanisms does trade affect economies?",
+                "title": "Mechanisms",
+                "list": [
+                    
+                ]
+            },
+            "basicGoals": {
+                "title": "Basic Goals",
+                "description": "The Foundations of understanding the field",
+                "list": [
+
+                ]
+            }
+        }
+    }
+}

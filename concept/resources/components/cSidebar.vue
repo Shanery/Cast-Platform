@@ -118,6 +118,7 @@ export default {
   .panel {
     display: flex;
     flex-direction: column;
+    margin-right: 3px;
   }
 
   ul {

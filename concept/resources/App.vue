@@ -242,19 +242,21 @@ a {
 }
 
 .sidebar {
-  width: 320px;
+  width: 300px;
   min-width: 260px;
   font-size: 12px;
   align-items: stretch;
 
   display: flex;
+  border-right: 1px solid rgb(219,219,219);
+  margin-right: 3px;
 }
 
 .display {
   text-align: left;
   flex-grow: 1;
   flex-wrap: wrap;
-  padding: 30px;
+  padding: 10px;
 }
 
 .todo {

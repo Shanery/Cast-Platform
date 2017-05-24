@@ -2354,6 +2354,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__displayCard_vue__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__displayCard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__displayCard_vue__);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2382,7 +2389,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       requestedViews: []
     };
   },
-  computed: {},
+  computed: {
+    displayableContent: function displayableContent() {
+      var keys = Object.keys(this.selected.item);
+
+      var views = {};
+      var i;
+
+      for (i in keys) {
+        if (typeof this.selected.item[keys[i]] === 'string') {
+          views[keys[i]] = {
+            key: keys[i],
+            value: this.selected.item[keys[i]]
+          };
+        }
+      }
+
+      return views;
+    },
+    displayableCards: function displayableCards() {
+      var keys = Object.keys(this.selected.item);
+
+      var views = {};
+      var i;
+
+      for (i in keys) {
+        if (_typeof(this.selected.item[keys[i]]) === 'object') {
+          views[keys[i]] = {
+            key: keys[i],
+            value: this.selected.item[keys[i]]
+          };
+        }
+      }
+
+      return views;
+    }
+  },
   methods: {
     hasProp: function hasProp(property) {
       if (this.selected.item.hasOwnProperty(property)) {
@@ -2432,6 +2474,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2469,12 +2526,87 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	name: 'displayCard',
-	props: {
-		cardTitle: String,
-		// Data of the card to be displayed
-		cardInfo: [Array, Object]
-	}
+  name: 'displayCard',
+  props: {
+    cardTitle: String,
+    // Data of the card to be displayed
+    cardInfo: [Array, Object],
+    hasFooter: Boolean
+  },
+  data: function data() {
+    return {
+      toggled: false
+    };
+  },
+  mounted: function mounted() {
+    var i;
+    for (i in this.cardInfo) {
+      if (typeof this.cardInfo[i] === 'string') {
+        if (this.cardInfo[i].includes("#")) {
+          var user = 'root';
+          var password = 'waffl3c0pt3r';
+
+          var config = {
+            auth: {
+              username: user,
+              password: password
+            }
+          };
+
+          axios.get('http://localhost:2480/query/conceptmapper/sql/select @this.toJSON("fetchPlan:*:-1") from' + this.cardInfo[i], config).then(function (response) {
+
+            var data = [];
+
+            dat.push(JSON.parse(response.data.result[0].this));
+            this.cardInfo = data;
+          }.bind(this));
+        }
+      }
+    }
+  },
+
+
+  computed: {
+    displayableContent: function displayableContent() {
+      var keys = Object.keys(this.cardInfo);
+
+      var views = {};
+      var i;
+
+      for (i in keys) {
+        if (typeof this.cardInfo[keys[i]] === 'string') {
+          views[keys[i]] = {
+            key: keys[i],
+            value: this.cardInfo[keys[i]]
+          };
+        }
+      }
+
+      return views;
+    },
+    displayableCards: function displayableCards() {
+      var keys = Object.keys(this.cardInfo);
+
+      var views = {};
+      var i;
+
+      for (i in keys) {
+        if (_typeof(this.cardInfo[keys[i]]) === 'object') {
+          views[keys[i]] = {
+            key: keys[i],
+            value: this.cardInfo[keys[i]]
+          };
+        }
+      }
+
+      return views;
+    }
+  },
+  methods: {
+    toggle: function toggle() {
+      this.toggled = !this.toggled;
+    }
+  }
 });
 
 /***/ }),
@@ -2560,20 +2692,7 @@ exports.push([module.i, "/*! bulma.io v0.4.1 | MIT License | github.com/jgthms/b
 
 
 /***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)();
-// imports
-
-
-// module
-exports.push([module.i, "\nh1 {\n  font-size: 16px;\n}\n.display {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 38 */,
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2596,7 +2715,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\n.panel[data-v-36a40ae3] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\nul[data-v-36a40ae3] {\n  width: 100%;\n}\ni[data-v-36a40ae3] {\n  padding: 11px 7px 11px 7px;\n}\n.content-items[data-v-36a40ae3] {\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  overflow: auto;\n}\n.is-option[data-v-36a40ae3] {\n  border-top: 1px solid rgb(219, 219, 219);\n}\n\n", ""]);
+exports.push([module.i, "\n.panel[data-v-36a40ae3] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  margin-right: 3px;\n}\nul[data-v-36a40ae3] {\n  width: 100%;\n}\ni[data-v-36a40ae3] {\n  padding: 11px 7px 11px 7px;\n}\n.content-items[data-v-36a40ae3] {\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  overflow: auto;\n}\n.is-option[data-v-36a40ae3] {\n  border-top: 1px solid rgb(219, 219, 219);\n}\n\n", ""]);
 
 // exports
 
@@ -2638,7 +2757,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\n#app[data-v-a05489dc] {\n  font-family: 'Avenir', Helvetica, Arial, sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  text-align: center;\n  color: #2c3e50;\n  width: 100%;\n  min-width: 800px;\n  margin: auto;\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\nh1[data-v-a05489dc], h2[data-v-a05489dc] {\n  font-weight: normal;\n  margin: 10px;\n}\np[data-v-a05489dc] {\n  margin: 5px;\n}\nul[data-v-a05489dc] {\n  list-style-type: none;\n  padding: 0;\n}\nli[data-v-a05489dc] {\n  text-align: left;\n}\na[data-v-a05489dc] {\n  color: #42b983;\n}\n.topbar[data-v-a05489dc] {\n}\n.main[data-v-a05489dc] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n.sidebar[data-v-a05489dc] {\n  width: 320px;\n  min-width: 260px;\n  font-size: 12px;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n\n  display: -webkit-box;\n\n  display: -ms-flexbox;\n\n  display: flex;\n}\n.display[data-v-a05489dc] {\n  text-align: left;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  padding: 30px;\n}\n.todo[data-v-a05489dc] {\n  width: 240px;\n  min-width: 240px;\n}\n.logo[data-v-a05489dc] {\n  font-size:22px;\n  font-weight: bold;\n  margin: 0;\n}\n.title[data-v-a05489dc] {\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n", ""]);
+exports.push([module.i, "\n#app[data-v-a05489dc] {\n  font-family: 'Avenir', Helvetica, Arial, sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  text-align: center;\n  color: #2c3e50;\n  width: 100%;\n  min-width: 800px;\n  margin: auto;\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\nh1[data-v-a05489dc], h2[data-v-a05489dc] {\n  font-weight: normal;\n  margin: 10px;\n}\np[data-v-a05489dc] {\n  margin: 5px;\n}\nul[data-v-a05489dc] {\n  list-style-type: none;\n  padding: 0;\n}\nli[data-v-a05489dc] {\n  text-align: left;\n}\na[data-v-a05489dc] {\n  color: #42b983;\n}\n.topbar[data-v-a05489dc] {\n}\n.main[data-v-a05489dc] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n.sidebar[data-v-a05489dc] {\n  width: 300px;\n  min-width: 260px;\n  font-size: 12px;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n\n  display: -webkit-box;\n\n  display: -ms-flexbox;\n\n  display: flex;\n  border-right: 1px solid rgb(219,219,219);\n  margin-right: 3px;\n}\n.display[data-v-a05489dc] {\n  text-align: left;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  padding: 10px;\n}\n.todo[data-v-a05489dc] {\n  width: 240px;\n  min-width: 240px;\n}\n.logo[data-v-a05489dc] {\n  font-size:22px;\n  font-weight: bold;\n  margin: 0;\n}\n.title[data-v-a05489dc] {\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n", ""]);
 
 // exports
 
@@ -2652,7 +2771,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\np[data-v-ff8c3010] {\n\tfont-size: 12px;\n}\nh1[data-v-ff8c3010] {\n\tfont-weight: bold;\n\t-webkit-box-flex: 0;\n\t    -ms-flex-positive: 0;\n\t        flex-grow: 0;\n}\n.card-header-title[data-v-ff8c3010]{\n\tfont-size: 24px;\n}\n.box[data-v-ff8c3010] {\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n}\n", ""]);
+exports.push([module.i, "\np[data-v-ff8c3010] {\n  font-size: 12px;\n  padding: 10px;\n}\n.content h1[data-v-ff8c3010]{\n  margin-bottom: 0px;\n  font-size: 16px;\n  font-weight: 300;\n}\nh1[data-v-ff8c3010] {\n  font-weight: 500;\n  -webkit-box-flex: 0;\n      -ms-flex-positive: 0;\n          flex-grow: 0;\n  margin-bottom: 0px;\n}\n.card-header-title[data-v-ff8c3010]{\n  font-size: 24px;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n.card-content[data-v-ff8c3010] {\n  padding: 0px;\n}\n.box[data-v-ff8c3010] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n", ""]);
 
 // exports
 
@@ -3283,7 +3402,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(62)
+__webpack_require__(80)
 
 var Component = __webpack_require__(2)(
   /* script */
@@ -3291,7 +3410,7 @@ var Component = __webpack_require__(2)(
   /* template */
   __webpack_require__(55),
   /* scopeId */
-  null,
+  "data-v-138b9eb8",
   /* cssModules */
   null
 )
@@ -3398,14 +3517,16 @@ module.exports = Component.exports
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "display"
-  }, [_c('h1', [_vm._v(_vm._s(_vm.selected.item.title))]), _vm._v(" "), _vm._l((_vm.requestedViews), function(view) {
-    return (view.checked && _vm.selected.item.hasOwnProperty(view.title.toLowerCase())) ? _c('display-card', {
-      key: view.title,
+  }, [_c('h1', [_vm._v(_vm._s(_vm.selected.item.title))]), _vm._v(" "), _vm._l((_vm.displayableContent), function(item) {
+    return _c('div', [_vm._v(" \n    " + _vm._s(item.value) + "\n  ")])
+  }), _vm._v(" "), _vm._l((_vm.displayableCards), function(item) {
+    return _c('div', [_c('display-card', {
       attrs: {
-        "cardInfo": _vm.selected.item[view.title.toLowerCase()],
-        "cardTitle": view.title
+        "cardTitle": item.key.toUpperCase(),
+        "cardInfo": item.value,
+        "hasFooter": true
       }
-    }) : _vm._e()
+    })], 1)
   })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -3809,36 +3930,55 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card"
   }, [_c('header', {
     staticClass: "card-header"
-  }, [_c('p', {
+  }, [_c('h1', {
     staticClass: "card-header-title"
-  }, [_vm._v("\n      " + _vm._s(_vm.cardTitle) + "\n    ")]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_c('div', {
-    staticClass: "content"
-  }, [_vm._l((_vm.cardInfo[0].subGoals), function(goal) {
-    return _c('div', {
-      staticClass: "info box"
-    }, [_c('section', [_c('h1', [_vm._v(_vm._s(goal.title))])]), _vm._v(" "), _c('section', [_c('p', [_vm._v(_vm._s(goal.description))])])])
-  }), _vm._v(" "), _vm._l((_vm.cardInfo[0].subGoals[0].desiredProperties), function(goal) {
-    return _c('div', {
-      staticClass: "info box"
-    }, [_c('section', [_c('h1', [_vm._v(_vm._s(goal.title))])]), _vm._v(" "), _c('section', [_c('p', [_vm._v(_vm._s(goal.description))])])])
-  })], 2)]), _vm._v(" "), _vm._m(1)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "card-header-icon"
+  }, [_vm._v("\n      " + _vm._s(_vm.cardTitle) + "\n    ")]), _vm._v(" "), _c('a', {
+    staticClass: "card-header-icon",
+    on: {
+      "click": _vm.toggle
+    }
   }, [_c('span', {
     staticClass: "icon"
-  }, [_c('i', {
+  }, [(_vm.toggled) ? _c('i', {
+    staticClass: "fa fa-angle-up"
+  }) : _c('i', {
     staticClass: "fa fa-angle-down"
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('footer', {
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.toggled),
+      expression: "toggled"
+    }],
+    staticClass: "content"
+  }, [(_vm.cardInfo.isArray) ? _c('div', _vm._l((_vm.displayableCards), function(item) {
+    return _c('div', [_c('display-card', {
+      attrs: {
+        "cardTitle": item.key,
+        "cardInfo": item.value,
+        "hasFooter": false,
+        "keys": item.key
+      }
+    })], 1)
+  })) : _c('div', [_vm._l((_vm.displayableContent), function(item) {
+    return _c('p', [_vm._v("\n          " + _vm._s(item.value) + "\n        ")])
+  }), _vm._v(" "), _vm._l((_vm.displayableCards), function(item) {
+    return _c('div', [_c('display-card', {
+      attrs: {
+        "cardTitle": item.key,
+        "cardInfo": item.value,
+        "hasFooter": false,
+        "keys": item.key
+      }
+    })], 1)
+  })], 2)])]), _vm._v(" "), (_vm.hasFooter) ? _c('footer', {
     staticClass: "card-footer"
   }, [_c('a', {
     staticClass: "card-footer-item"
-  }, [_vm._v("Check")])])
-}]}
+  }, [_vm._v("Check")])]) : _vm._e()])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -3848,32 +3988,7 @@ if (false) {
 }
 
 /***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(38);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("077c785c", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-138b9eb8\",\"scoped\":false,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./conceptDisplay.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-138b9eb8\",\"scoped\":false,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./conceptDisplay.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 62 */,
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13723,6 +13838,52 @@ module.exports = g;
 __webpack_require__(10);
 module.exports = __webpack_require__(11);
 
+
+/***/ }),
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+// imports
+
+
+// module
+exports.push([module.i, "\nh1[data-v-138b9eb8] {\n  font-size: 21px;\n  font-weight: 400;\n}\n.display[data-v-138b9eb8] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(79);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("dc5edfca", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-138b9eb8\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./conceptDisplay.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-138b9eb8\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./conceptDisplay.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);
