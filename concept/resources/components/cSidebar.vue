@@ -66,6 +66,7 @@ export default {
   },
   data: function() {
     return {
+      // UI States
       currentTab: "Views",
       tabs: [
         {
@@ -101,10 +102,9 @@ export default {
   computed: {
     matches() {
       if (this.search.views == '') {
-        return [];
+        return this.conceptNodes;
       }
       return this.conceptNodes.filter(node => {
-        // here we need to figure out if the city or state matches what was searched
         const regex = new RegExp(this.search.views, 'gi');
         return node.title.match(regex)
       });

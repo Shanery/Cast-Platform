@@ -74,6 +74,7 @@ export default {
   }
   .panel-block {
     border-left: 0px;
+    border-right: 0px;
   }
   
   .title {

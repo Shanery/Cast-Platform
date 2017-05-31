@@ -33,11 +33,25 @@
           </div>
         </div>
 
+
+
+
+
+        <div v-if="hasThings">
+          {{ data[0].summary }}       
+        </div>
+
+
+
+
+
+
+
       </div>
     </div>
     <!-- Footer -->
     <footer v-if="hasFooter" class="card-footer">
-      <a class="card-footer-item">Check</a>
+      <a class="card-footer-item">Hello!!</a>
     </footer>
 
     
@@ -47,6 +61,8 @@
 </template>
 
 <script>
+import {HTTP} from '../http-common.js'
+
   export default {
     name: 'displayCard',
     props: {
@@ -57,49 +73,32 @@
     },
     data() {
       return {
-        toggled: false
+        toggled: false,
+        data: {},
+        hasThings: false
       }
     },
+    created() {
+      this.data = this.cardInfo;
+    },
     mounted() {
-      var i;
-      for (i in this.cardInfo) {
-        if (typeof(this.cardInfo[i]) === 'string') {
-          if (this.cardInfo[i].includes("#")) {
-            var user = 'root';
-            var password = 'waffl3c0pt3r';
-
-            var config = {
-              auth: {
-                username: user,
-                password: password
-              }
-            };
-
-            axios.get(('http://localhost:2480/query/conceptmapper/sql/select @this.toJSON("fetchPlan:*:-1") from' + this.cardInfo[i]), config)
-            .then(function(response) {
-              
-              var data = []
-              
-              dat.push(JSON.parse(response.data.result[0].this))
-              this.cardInfo = data
-            }.bind(this));
-          }
-        }
-      }
+      
     },
 
     computed: {
       displayableContent() {
-        var keys = Object.keys(this.cardInfo);
+        var keys = Object.keys(this.data);
         
         let views = {};
         var i;
 
         for (i in keys) {
-          if (typeof(this.cardInfo[keys[i]]) === 'string') {
-            views[keys[i]] =  {
-              key: keys[i],
-              value: this.cardInfo[keys[i]]
+          if (typeof(this.data[keys[i]]) === 'string') {
+            if (this.data[keys[i]] != '@rid') {
+              views[keys[i]] =  {
+                key: keys[i],
+                value: this.data[keys[i]]
+              }
             }
           }
         }
@@ -107,16 +106,16 @@
         return views;
       },
       displayableCards() {
-        var keys = Object.keys(this.cardInfo);
+        var keys = Object.keys(this.data);
         
         let views = {};
         var i;
 
         for (i in keys) {
-          if (typeof(this.cardInfo[keys[i]]) === 'object') {
+          if (typeof(this.data[keys[i]]) === 'object') {
             views[keys[i]] =  {
               key: keys[i],
-              value: this.cardInfo[keys[i]]
+              value: this.data[keys[i]]
             }
           }
         }

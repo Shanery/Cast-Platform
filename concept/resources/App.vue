@@ -22,6 +22,11 @@
         <!-- This "nav-menu" is hidden on mobile -->
         <!-- Add the modifier "is-active" to display it on mobile -->
         <div class="nav-right nav-menu">
+          <a class="nav-item" @click="viewSearch">
+            <span class="icon is-medium is-left">
+              <i class="fa fa-search"></i>
+            </span>
+          </a>
           <a class="nav-item">
             Home
           </a>
@@ -35,9 +40,52 @@
         </div>
       </nav>
     </section>
+    
+    <!-- Search Page -->
+    <section class="search"
+    v-if="state.current === 'search'">
+      <!-- Search Bar -->
+      <div class="searchbar control has-icons-left">
+        
+        <input class="input is-medium" type="text" placeholder="Search" 
+        v-model="state.search.input" 
+        @keydown.enter="search">
+        
+        <span class="icon is-medium is-left">
+          <i class="fa fa-search"></i>
+        </span>
+      </div>
+      
+      <div class="results" v-if="state.search.isResult">
+        <!-- Content Results -->
+        <div class="column"> 
+          <p>
+            Contents
+          </p>
+
+          <div class="result-block">
+            <c-node v-for="result in state.search.results"
+          :node="result" :selected="selected" :key="result.title"> </c-node>
+          </div>
+        </div>
+
+        <div class="column">
+
+          <p>Goals</p>
+          <div class="result-block">
+            
+          </div>
+
+          <button class="button is-primary is-outlined" @click="viewResults">
+            Explore</button>
+
+        </div>
+      </div>
+    </section>
 
     <!-- Main App -->
-    <section class="main">
+    <section class="main"
+    v-else>
       
       <!-- Info Navigation -->
       <div class="sidebar">
@@ -50,7 +98,7 @@
       </div>
 
       <!-- Todo List -->
-      <div class="todo">
+      <div class="checklist">
         <check-list :checklist="userSettings.todos">
           
         </check-list>
@@ -72,107 +120,68 @@
 import cSidebar from './components/cSidebar.vue'
 import conceptDisplay from './components/conceptDisplay.vue'
 import checkList from './components/checkList.vue'
-import axios from 'axios'
+import cNode from './components/cNode.vue'
+import {HTTP} from './http-common.js' 
+import {userSettings} from './user-settings.js'
 
 // TO-DO: Change database
-
-// Goal Data
-  var proc = {
-    title: "Process",
-    subOptions: [
-      {
-        title: "Views",
-        subOptions: [
-          {
-            title: "Goals"
-          },
-          {
-            title: "Alternatives"
-          },
-          {
-            title: "Examples"
-          },
-          {
-            title: "Practice"
-          }
-        ]
-      },
-      {
-        title: "Checklist",
-        subOptions: [
-          {
-            title: "Practice"
-          },
-          {
-            title: "Lawry"
-          },
-          {
-            title: "Whatever"
-          },
-        ]
-      }
-    ]
-  };
-
-  var goals = [];
-  goals.push({
-    title: "Learning Skills",
-    subOptions: [proc]
-  });
-
-// Todo Data
 
 export default {
   name: 'app',
   data () {
     return {
+      // Data to view
       info: [{title: 'Error Nothing loaded'}],
       selected: {item: {title: 'Error Nothing loaded'}},
+      // User Settings
       userSettings: {
         goals: [],
         todos: []
+      },
+      // UI State Data
+      state: {
+        current: "search",
+        search: {
+          input: "",
+          isResult: false,
+          results: []
+        },
+        display: {
+
+        }
       }
     }
   },
   components: {
     cSidebar,
     conceptDisplay,
-    checkList
+    checkList,
+    cNode
   },
   created: function() {
     // Get Goal Data
-    this.userSettings.goals = goals;
+    this.userSettings = userSettings;
 
     // Get Tree Data
-      var user = 'root';
-      var password = 'waffl3c0pt3r';
-
-      var config = {
-        auth: {
-          username: user,
-          password: password
-        }
-      };
+      
 
       //Connection Created
-      axios.get('http://localhost:2480/connect/conceptmapper', config)
+      HTTP.get('connect/conceptmapper')
       .then(function(response) {
-        console.log(response.data)
+        console.log(response.data);
       });
 
 
       // Load Data For Sidebar
-      axios.get('http://localhost:2480/query/conceptmapper/sql/select @this.toJSON("fetchPlan:*:-1") from field', config)
+      HTTP.get('query/conceptmapper/sql/select @this.toJSON("fetchPlan:*:-1") from field')
       .then(function(response) {
         
-        var dat = []
+        var data = [];
         
-        dat.push(JSON.parse(response.data.result[0].this))
-        this.info = dat
+        data.push(JSON.parse(response.data.result[0].this))
+        this.info = data;
 
-        console.log(JSON.parse(response.data.result[0].this))
-
-        this.selected.item = dat[0].out_Subfield[0].in
+        console.log(JSON.parse(response.data.result[0].this));
       }.bind(this));
 
       this.getTodos();
@@ -183,6 +192,26 @@ export default {
         
         this.userSettings.todos.push(...items);
       })
+    },
+    viewSearch() {
+      this.state.current = "search";
+    },
+    search() {
+      if (this.search.views == '') {
+        this.state.search.results = [];
+        this.state.search.isResult = false;
+      }
+      else {
+        this.state.search.results = this.info.filter(node => {
+          const regex = new RegExp(this.state.search.input, 'gi');
+          return node.title.match(regex)
+        });
+
+        this.state.search.isResult = true;
+      }
+    },
+    viewResults() {
+      this.state.current = "results"
     }
   }
 }
@@ -194,83 +223,125 @@ export default {
 
 
 
+<!-- Styles  -->
+  <style scoped>
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    width: 100%;
+    min-width: 800px;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 
-<style scoped>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  width: 100%;
-  min-width: 800px;
-  margin: auto;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
+  h1, h2 {
+    font-weight: normal;
+    margin: 10px;
+  }
 
-h1, h2 {
-  font-weight: normal;
-  margin: 10px;
-}
+  p {
+    margin: 5px;
+  }
 
-p {
-  margin: 5px;
-}
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  li {
+    text-align: left;
+  }
 
-li {
-  text-align: left;
-}
+  a {
+    color: #42b983;
+  }
+  .topbar {
+    
+  }
 
-a {
-  color: #42b983;
-}
-.topbar {
-  
-}
+  .main {
+    display: flex;
+    align-items: stretch;
+    flex-grow: 1;
+  }
 
-.main {
-  display: flex;
-  align-items: stretch;
-  flex-grow: 1;
-}
+  .search {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+  }
 
-.sidebar {
-  width: 300px;
-  min-width: 260px;
-  font-size: 12px;
-  align-items: stretch;
+  .searchbar {
+    display: flex;
+    margin: 30px 100px 30px 100px;
+  }
 
-  display: flex;
-  border-right: 1px solid rgb(219,219,219);
-  margin-right: 3px;
-}
+  .input {
+    border-radius: 30px
+  }
 
-.display {
-  text-align: left;
-  flex-grow: 1;
-  flex-wrap: wrap;
-  padding: 10px;
-}
+  .results {
+    display: flex;
+    align-items: stretch;
+    flex-grow: 1;
+    margin: 0px 100px 0px 100px;
+  }
 
-.todo {
-  width: 240px;
-  min-width: 240px;
-}
+  .result-block {
+    border: 1px solid rgb(219,219,219);
+    
+    padding-right: -1px;
+    flex-grow: 1;
+  }
 
-.logo {
-  font-size:22px;
-  font-weight: bold;
-  margin: 0;
-}
+  .column {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.title {
-  flex-grow: 1;
-}
-</style>
+  .goal {
+    flex-grow: 1;
+  }
+
+  .sidebar {
+    width: 300px;
+    min-width: 260px;
+    font-size: 12px;
+    align-items: stretch;
+
+    display: flex;
+    border-right: 1px solid rgb(219,219,219);
+    margin: ;
+  }
+
+  .display {
+    text-align: left;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    padding: 10px;
+  }
+
+  .checklist {
+    width: 240px;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo {
+    font-size:22px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .title {
+    flex-grow: 1;
+  }
+  </style>
