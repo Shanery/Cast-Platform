@@ -1,48 +1,33 @@
 
-2017-05-26 15:31:13:139 INFO  Loading configuration from: /Users/shanery/WebWork/Concepts prototype/orientdb-community-2.2.18/config/orientdb-server-config.xml... [OServerConfigurationLoaderXml]
-2017-05-26 15:31:13:459 INFO  OrientDB Server v2.2.18 (build 3e8d46e73aa087fce245fa1125ab7d984a247f6e) is starting up... [OServer]
-2017-05-26 15:31:13:467 INFO  Databases directory: /Users/shanery/WebWork/Concepts prototype/orientdb-community-2.2.18/databases [OServer]
-2017-05-26 15:31:13:564 INFO  OrientDB auto-config DISKCACHE=4,181MB (heap=1,963MB direct=524,288MB os=8,192MB) [OMemoryAndLocalPaginatedEnginesInitializer]
-2017-05-26 15:31:14:074 INFO  Listening binary connections on 0.0.0.0:2424 (protocol v.36, socket=default) [OServerNetworkListener]
-2017-05-26 15:31:14:080 INFO  Listening http connections on 0.0.0.0:2480 (protocol v.10, socket=default) [OServerNetworkListener]
-2017-05-26 15:31:14:100 INFO  Installing dynamic plugin 'orientdb-studio-2.2.18.zip'... [OServerPluginManager]
-2017-05-26 15:31:14:104 INFO  ODefaultPasswordAuthenticator is active [ODefaultPasswordAuthenticator]
-2017-05-26 15:31:14:106 INFO  OServerConfigAuthenticator is active [OServerConfigAuthenticator]
-2017-05-26 15:31:14:107 INFO  OSystemUserAuthenticator is active [OSystemUserAuthenticator]
-2017-05-26 15:31:14:144 INFO  Installed GREMLIN language v.2.6.0 - graph.pool.max=50 [OGraphServerHandler]
-2017-05-26 15:31:14:145 INFO  [OVariableParser.resolveVariables] Error on resolving property: distributed [orientechnologies]
-2017-05-26 15:31:14:150 WARNI Authenticated clients can execute any kind of code into the server by using the following allowed languages: [sql] [OServerSideScriptInterpreter]
-2017-05-26 15:31:14:153 INFO  OrientDB Studio available at http://192.168.203.12:2480/studio/index.html [OServer]
-2017-05-26 15:31:14:154 INFO  OrientDB Server is active v2.2.18 (build 3e8d46e73aa087fce245fa1125ab7d984a247f6e). [OServer]
-2017-05-26 15:51:20:612 SEVER Internal server error:
-Error parsing query:
-select @this.toJSON("fetchPlan:*:-1") from
-                                         ^
-Encountered " <FROM> "from "" at line 1, column 39.
-Was expecting one of:
-    <EOF> 
-    <LIMIT> ...
-    <SKIP2> ...
-    <OFFSET> ...
-    <TIMEOUT> ...
-    <AS> ...
-    <FETCHPLAN> ...
-    <LOCK> ...
-    <LET> ...
-    <NOCACHE> ...
-    <PARALLEL> ...
-    <UNWIND> ...
-    ";" ...
-    "," ...
-    <AS> ...
-    "," ...
-    
-	DB name="conceptmapper" [ONetworkProtocolHttpDb]
-2017-05-26 15:56:33:500 SEVER Internal server error:
-com.orientechnologies.orient.core.command.OCommandExecutorNotFoundException: Cannot find a command executor for the command request: sql.*:-1
-	DB name="conceptmapper" [ONetworkProtocolHttpDb]
-2017-05-26 16:09:05:156 WARNI ->0:0:0:0:0:0:0:1: Command not found: GET.connect [ONetworkProtocolHttpDb]
-2017-05-26 16:32:27:939 WARNI ->0:0:0:0:0:0:0:1: Command not found: GET.studio/main.js.map [ONetworkProtocolHttpDb]
-2017-05-26 16:59:56:157 SEVER Internal server error:
-java.lang.IllegalArgumentException: Fetch plan 'summary' is invalid [ONetworkProtocolHttpDb]
-2017-05-27 01:41:36:146 INFO  OrientDB Server is shutting down... [OServer]
+2017-05-29 11:54:54:818 INFO  Loading configuration from: /Users/shanery/WebWork/Concepts prototype/orientdb-community-2.2.18/config/orientdb-server-config.xml... [OServerConfigurationLoaderXml]
+2017-05-29 11:54:56:278 INFO  OrientDB Server v2.2.18 (build 3e8d46e73aa087fce245fa1125ab7d984a247f6e) is starting up... [OServer]
+2017-05-29 11:54:56:295 INFO  Databases directory: /Users/shanery/WebWork/Concepts prototype/orientdb-community-2.2.18/databases [OServer]
+2017-05-29 11:54:56:766 INFO  OrientDB auto-config DISKCACHE=4,181MB (heap=1,963MB direct=524,288MB os=8,192MB) [OMemoryAndLocalPaginatedEnginesInitializer]
+2017-05-29 11:54:58:451 INFO  Listening binary connections on 0.0.0.0:2424 (protocol v.36, socket=default) [OServerNetworkListener]
+2017-05-29 11:54:58:459 INFO  Listening http connections on 0.0.0.0:2480 (protocol v.10, socket=default) [OServerNetworkListener]
+2017-05-29 11:54:58:500 INFO  Installing dynamic plugin 'orientdb-studio-2.2.18.zip'... [OServerPluginManager]
+2017-05-29 11:54:58:505 INFO  ODefaultPasswordAuthenticator is active [ODefaultPasswordAuthenticator]
+2017-05-29 11:54:58:509 INFO  OServerConfigAuthenticator is active [OServerConfigAuthenticator]
+2017-05-29 11:54:58:523 INFO  OSystemUserAuthenticator is active [OSystemUserAuthenticator]
+2017-05-29 11:54:58:630 INFO  Installed GREMLIN language v.2.6.0 - graph.pool.max=50 [OGraphServerHandler]
+2017-05-29 11:54:58:631 INFO  [OVariableParser.resolveVariables] Error on resolving property: distributed [orientechnologies]
+2017-05-29 11:54:58:643 WARNI Authenticated clients can execute any kind of code into the server by using the following allowed languages: [sql] [OServerSideScriptInterpreter]
+2017-05-29 11:54:58:647 INFO  OrientDB Studio available at http://192.168.203.12:2480/studio/index.html [OServer]
+2017-05-29 11:54:58:649 INFO  OrientDB Server is active v2.2.18 (build 3e8d46e73aa087fce245fa1125ab7d984a247f6e). [OServer]
+2017-05-30 18:54:17:926 SEVER Internal server error:
+com.orientechnologies.orient.core.exception.OSerializationException: Error on unmarshalling JSON content for record: "@class":"Model","@version":0,"@rid":"#-1:-1","componentsAndProperties":[{"title":"Motivation","Questions":["What do they want?","Short-term vs Long-term?"]},{"title":"Demand & Preferences","Questions":["What object of Value do they want?","What factors determine their Choice?","Given a set of factors, what are they probably going to choose?"]},{"title":"Supply","Questions":["What things of value can they provide?","What determines their choice of things to provide?"]},{"title":"Decision Making Process","Questions":["What factors go into their decision making process?","Do we assume that they are Rational?","If not what then?"]}],"rules":null,"title":"Economic Agent","purpose":"","definitions":""
+	DB name="conceptmapper"
+--> java.lang.IllegalArgumentException: Type EMBEDDEDLIST does not support converting value: "" [ONetworkProtocolHttpDb]
+2017-05-30 22:01:31:179 SEVER Internal server error:
+java.lang.NumberFormatException: For input string: "Know as much as possible about 29" [ONetworkProtocolHttpDb]
+2017-05-30 22:01:44:605 SEVER Internal server error:
+java.lang.NumberFormatException: For input string: "Know as much as possible about 29" [ONetworkProtocolHttpDb]
+2017-05-30 22:02:07:860 SEVER Internal server error:
+java.lang.NumberFormatException: For input string: "Know as much as possible about 29" [ONetworkProtocolHttpDb]
+2017-05-30 22:02:23:894 SEVER Internal server error:
+java.lang.NumberFormatException: For input string: "Know as much as possible about 29" [ONetworkProtocolHttpDb]
+2017-05-31 15:12:58:127 SEVER Internal server error:
+java.lang.NumberFormatException: For input string: "Know as much as possible about 29" [ONetworkProtocolHttpDb]
+2017-05-31 15:13:04:339 SEVER Internal server error:
+java.lang.NumberFormatException: For input string: "Know as much as possible about 29" [ONetworkProtocolHttpDb]
+2017-06-10 14:37:33:723 INFO  OrientDB Server is shutting down... [OServer]

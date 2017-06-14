@@ -31,7 +31,7 @@ export default {
     // TODO Fix this thing to IDs
     isSelected: function() {
       return {
-        selectedItem: this.selected.item.title == this.node.title
+        'selectedItem': this.selected.item.title == this.node.title
       }
     }
   },
@@ -90,7 +90,7 @@ export default {
   }
 
   .selectedItem {
-    color: blue;
+    background-color: whitesmoke;
   }
 
   .icono-caretRight {

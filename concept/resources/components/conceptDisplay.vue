@@ -1,16 +1,23 @@
 <!-- Component that delegates data off display card components -->
 
 <template>
-  <div class="display">
+  <div class="disp">
     <h1>{{selected.item.title}}</h1>
     
 
     <!-- Display card for any settings which are requested and checked -->
-    <div v-for="item in displayableContent"> 
-      {{ item.value }}
+    <div class="horizontalBox"
+    v-if="selected.item.displayType == 'convLayer'">
+      <!-- Main Layer -->
+      <conv-layer :layer="main" :useFilter="true" :userSettings="userSettings"></conv-layer>
     </div>
-    <div v-for="item in displayableCards"> 
-      <display-card :cardTitle="item.key.toUpperCase()" :cardInfo="item.value" :hasFooter="true"></display-card>
+    <div v-else>
+      <div v-for="item in displayableContent"> 
+        {{ item.value }}
+      </div>
+      <div v-for="item in displayableCards"> 
+        <display-card :cardTitle="item.key.toUpperCase()" :cardInfo="item.value" :hasFooter="true"></display-card>
+      </div>
     </div>
 
   </div>
@@ -19,6 +26,9 @@
 
 <script>
 import displayCard from "./displayCard.vue"
+import convLayer from "./convLayer.vue"
+
+import {isEmpty} from "../common-functions.js"
 
 export default {
   name: "conceptDisplay",
@@ -28,10 +38,26 @@ export default {
   },
   data: function() {
     return {
-      requestedViews: []
+      userSettings: {
+        descriptions: {
+          display: true,
+          number: 1,
+          depth: 3,
+          displayType: "textCard"
+        },
+        desiredProperties: {
+          display: true,
+          number: 3, // Fold the rest... Future task
+          depth: 1,
+          displayType: "textCard"
+        },
+      }
     }
   },
   computed: {
+    main() {
+      return this.selected.item.layers[0];
+    },
     displayableContent() {
       var keys = Object.keys(this.selected.item);
       
@@ -97,30 +123,35 @@ export default {
     }
   },
   mounted: function() {
-    this.requestedViews = [];
-
-    // Load views from viewProperties
-    var goal;
-    for (goal in this.viewProperties) {
-      this.getViews(this.viewProperties[goal], false);
-    }
   },
   components: {
-    displayCard
+    displayCard,
+    convLayer
   }
 }
 
 </script>
 
 <style scoped>
+  .horizontalBox {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-grow: 1;
+  }
+
   h1 {
     font-size: 21px;
     font-weight: 400;
   }
 
-  .display {
+  .disp {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+    flex-wrap: nowrap;
+
   }
 </style>
 

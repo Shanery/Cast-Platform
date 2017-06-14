@@ -1,16 +1,48 @@
 
-2017-05-24 01:50:56:195 INFO  Loading configuration from: /Users/shanery/Google Drive/WebWork/Concepts prototype/orientdb-community-2.2.18/config/orientdb-server-config.xml... [OServerConfigurationLoaderXml]
-2017-05-24 01:50:56:453 INFO  OrientDB Server v2.2.18 (build 3e8d46e73aa087fce245fa1125ab7d984a247f6e) is starting up... [OServer]
-2017-05-24 01:50:56:459 INFO  Databases directory: /Users/shanery/Google Drive/WebWork/Concepts prototype/orientdb-community-2.2.18/databases [OServer]
-2017-05-24 01:50:56:531 INFO  OrientDB auto-config DISKCACHE=4,181MB (heap=1,963MB direct=524,288MB os=8,192MB) [OMemoryAndLocalPaginatedEnginesInitializer]
-2017-05-24 01:50:56:975 INFO  Listening binary connections on 0.0.0.0:2424 (protocol v.36, socket=default) [OServerNetworkListener]
-2017-05-24 01:50:56:979 INFO  Listening http connections on 0.0.0.0:2480 (protocol v.10, socket=default) [OServerNetworkListener]
-2017-05-24 01:50:56:997 INFO  Installing dynamic plugin 'orientdb-studio-2.2.18.zip'... [OServerPluginManager]
-2017-05-24 01:50:57:002 INFO  ODefaultPasswordAuthenticator is active [ODefaultPasswordAuthenticator]
-2017-05-24 01:50:57:004 INFO  OServerConfigAuthenticator is active [OServerConfigAuthenticator]
-2017-05-24 01:50:57:005 INFO  OSystemUserAuthenticator is active [OSystemUserAuthenticator]
-2017-05-24 01:50:57:056 INFO  Installed GREMLIN language v.2.6.0 - graph.pool.max=50 [OGraphServerHandler]
-2017-05-24 01:50:57:057 INFO  [OVariableParser.resolveVariables] Error on resolving property: distributed [orientechnologies]
-2017-05-24 01:50:57:065 WARNI Authenticated clients can execute any kind of code into the server by using the following allowed languages: [sql] [OServerSideScriptInterpreter]
-2017-05-24 01:50:57:068 INFO  OrientDB Studio available at http://192.168.203.12:2480/studio/index.html [OServer]
-2017-05-24 01:50:57:069 INFO  OrientDB Server is active v2.2.18 (build 3e8d46e73aa087fce245fa1125ab7d984a247f6e). [OServer]
+2017-05-26 15:31:13:139 INFO  Loading configuration from: /Users/shanery/WebWork/Concepts prototype/orientdb-community-2.2.18/config/orientdb-server-config.xml... [OServerConfigurationLoaderXml]
+2017-05-26 15:31:13:459 INFO  OrientDB Server v2.2.18 (build 3e8d46e73aa087fce245fa1125ab7d984a247f6e) is starting up... [OServer]
+2017-05-26 15:31:13:467 INFO  Databases directory: /Users/shanery/WebWork/Concepts prototype/orientdb-community-2.2.18/databases [OServer]
+2017-05-26 15:31:13:564 INFO  OrientDB auto-config DISKCACHE=4,181MB (heap=1,963MB direct=524,288MB os=8,192MB) [OMemoryAndLocalPaginatedEnginesInitializer]
+2017-05-26 15:31:14:074 INFO  Listening binary connections on 0.0.0.0:2424 (protocol v.36, socket=default) [OServerNetworkListener]
+2017-05-26 15:31:14:080 INFO  Listening http connections on 0.0.0.0:2480 (protocol v.10, socket=default) [OServerNetworkListener]
+2017-05-26 15:31:14:100 INFO  Installing dynamic plugin 'orientdb-studio-2.2.18.zip'... [OServerPluginManager]
+2017-05-26 15:31:14:104 INFO  ODefaultPasswordAuthenticator is active [ODefaultPasswordAuthenticator]
+2017-05-26 15:31:14:106 INFO  OServerConfigAuthenticator is active [OServerConfigAuthenticator]
+2017-05-26 15:31:14:107 INFO  OSystemUserAuthenticator is active [OSystemUserAuthenticator]
+2017-05-26 15:31:14:144 INFO  Installed GREMLIN language v.2.6.0 - graph.pool.max=50 [OGraphServerHandler]
+2017-05-26 15:31:14:145 INFO  [OVariableParser.resolveVariables] Error on resolving property: distributed [orientechnologies]
+2017-05-26 15:31:14:150 WARNI Authenticated clients can execute any kind of code into the server by using the following allowed languages: [sql] [OServerSideScriptInterpreter]
+2017-05-26 15:31:14:153 INFO  OrientDB Studio available at http://192.168.203.12:2480/studio/index.html [OServer]
+2017-05-26 15:31:14:154 INFO  OrientDB Server is active v2.2.18 (build 3e8d46e73aa087fce245fa1125ab7d984a247f6e). [OServer]
+2017-05-26 15:51:20:612 SEVER Internal server error:
+Error parsing query:
+select @this.toJSON("fetchPlan:*:-1") from
+                                         ^
+Encountered " <FROM> "from "" at line 1, column 39.
+Was expecting one of:
+    <EOF> 
+    <LIMIT> ...
+    <SKIP2> ...
+    <OFFSET> ...
+    <TIMEOUT> ...
+    <AS> ...
+    <FETCHPLAN> ...
+    <LOCK> ...
+    <LET> ...
+    <NOCACHE> ...
+    <PARALLEL> ...
+    <UNWIND> ...
+    ";" ...
+    "," ...
+    <AS> ...
+    "," ...
+    
+	DB name="conceptmapper" [ONetworkProtocolHttpDb]
+2017-05-26 15:56:33:500 SEVER Internal server error:
+com.orientechnologies.orient.core.command.OCommandExecutorNotFoundException: Cannot find a command executor for the command request: sql.*:-1
+	DB name="conceptmapper" [ONetworkProtocolHttpDb]
+2017-05-26 16:09:05:156 WARNI ->0:0:0:0:0:0:0:1: Command not found: GET.connect [ONetworkProtocolHttpDb]
+2017-05-26 16:32:27:939 WARNI ->0:0:0:0:0:0:0:1: Command not found: GET.studio/main.js.map [ONetworkProtocolHttpDb]
+2017-05-26 16:59:56:157 SEVER Internal server error:
+java.lang.IllegalArgumentException: Fetch plan 'summary' is invalid [ONetworkProtocolHttpDb]
+2017-05-27 01:41:36:146 INFO  OrientDB Server is shutting down... [OServer]

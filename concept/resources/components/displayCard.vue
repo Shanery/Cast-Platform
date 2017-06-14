@@ -69,7 +69,8 @@ import {HTTP} from '../http-common.js'
       cardTitle: String,
       // Data of the card to be displayed
       cardInfo: [Array, Object],
-      hasFooter: Boolean
+      hasFooter: Boolean,
+      displayType: String
     },
     data() {
       return {

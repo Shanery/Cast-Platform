@@ -33,7 +33,7 @@
     </p>
 
     <!-- Panel Content Items -->
-    <div class="content-items">
+      <div class="content-items">
       <ul v-show="currentTab == 'Views'">
         <c-node v-for="node in matches" :key="node.title" :node="node" :selected="selected"></c-node>
       </ul>
@@ -42,7 +42,7 @@
       </ul>
     </div>
    
-   <!-- Footer -->
+    <!-- Footer -->
     <footer class="panel-block is-option">
       <button class="button is-primary is-outlined is-fullwidth">
         Reset all filters
