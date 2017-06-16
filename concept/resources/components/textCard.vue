@@ -2,8 +2,9 @@
   <div class="card">
     <!-- Header -->
     <header class="card-header" v-if="card.key != 'in'">
-      <h3 class="card-header-title">
+      <h3 class="card-header-title" @click="selectedLayer.item = main.items">
         {{ title }}
+        {{ card.title}}
       </h3>
       <a class="button is-small is-inverted" @click="createNewElement = true">+ Item</a>
       <a class="button is-small is-inverted" v-if="!isEdge(card.key)">+ Field</a>
@@ -21,6 +22,9 @@
         <span class="tag sub-header is-info" v-if="info.item.hasOwnProperty('type') && (info.item.type != '') && (info.item.type != null)"
         @click="selectedLayer.item = info.item">
           {{info.item.type}}
+        </span>
+        <span class="tag sub-header is-info" v-else-if="info.item.hasOwnProperty('title') && (info.item.title != '') && (info.item.title != null)">
+          {{ info.item.title }}
         </span>
         <!-- Text -->
         <div class="textbox" v-if="typeof(info.item) === 'string'"> 
@@ -112,21 +116,34 @@ import {isEdge, toTitle} from "../common-functions.js"
 
                 // Ignore in_representations
                 if (!keys[j].match(rerep_in)) {
-                  
+                  var rerep = new RegExp('rerepresentation');
+                  var key = keys[j];
+                  var val = info[keys[j]];
+                  var out = new RegExp('out_')
                   // Make sure that there's a value...
                   if (info[keys[j]] != null) {
-                    var rerep = new RegExp('rerepresentation');
-
-                    var key = keys[j];
-                    
-                    if (keys[j].match(rerep)) {
+                    // Filter Representations
+                    if (keys[j].toLowerCase().match(rerep)) {
                       key = 'Other Representations'
                     } 
+                    // Filter Outputs
+                    else if (keys[j].toLowerCase().match(out)) {
+                      console.log(keys[j]);
+                      key = key.replace('out_', "");
+                      key = key.replace('Out_', "");
+                      key = key.replace(/\b\w/g, function(l){ return l.toUpperCase() });
+                      val = [];
+
+                      for (var x in info[keys[j]]) {
+                        val.push(info[keys[j]][x]);
+                      }
+                    }
+
 
                     views[key] =  {
                       key: key,
                       depth: this.card.depth - 1,
-                      value: this.arrayCast(info[keys[j]])
+                      value: this.arrayCast(val)
                     }
                     if (Array.isArray(info[keys[j]])) {
                       views[key].number = info[keys[j]].length;
@@ -252,6 +269,7 @@ import {isEdge, toTitle} from "../common-functions.js"
   }
 
   .sub-header {
+    cursor: pointer;
     margin: 10px;
   }
 

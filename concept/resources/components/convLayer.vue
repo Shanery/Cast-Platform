@@ -9,7 +9,7 @@
           {{ layer.type }}
         </h3>
         <h6 v-if="layer != undefined">
-          {{ layer.layerType }}
+          {{ layer["@class"] }}
         </h6>
         <a class="card-header-icon" @click="isToggled = !isToggled">
           <span class="icon">
@@ -118,8 +118,8 @@ import {isEdge, isEmpty} from "../common-functions.js"
 
                   views[key] =  {
                     key: key,
-                    depth: 5,
-                    number: 5,
+                    depth: 2,
+                    number: this.layer[keys[i]].length,
                     value: this.layer[keys[i]]
                   }
                 } 
@@ -137,7 +137,11 @@ import {isEdge, isEmpty} from "../common-functions.js"
       }
     },
     created() {
-
+      this.selectedLayer = {
+        main: {},
+        item: {},
+        end: {}
+      }
     },
     methods: {
       

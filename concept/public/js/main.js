@@ -3043,8 +3043,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                 views[key] = {
                   key: key,
-                  depth: 5,
-                  number: 5,
+                  depth: 2,
+                  number: this.layer[keys[i]].length,
                   value: this.layer[keys[i]]
                 };
               }
@@ -3061,7 +3061,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       return Array.isArray(this.selectedLayer.item);
     }
   },
-  created: function created() {},
+  created: function created() {
+    this.selectedLayer = {
+      main: {},
+      item: {},
+      end: {}
+    };
+  },
 
   methods: {},
   components: {
@@ -3383,6 +3389,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3434,21 +3444,35 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             // Ignore in_representations
             if (!keys[j].match(rerep_in)) {
-
+              var rerep = new RegExp('rerepresentation');
+              var key = keys[j];
+              var val = info[keys[j]];
+              var out = new RegExp('out_');
               // Make sure that there's a value...
               if (info[keys[j]] != null) {
-                var rerep = new RegExp('rerepresentation');
-
-                var key = keys[j];
-
-                if (keys[j].match(rerep)) {
+                // Filter Representations
+                if (keys[j].toLowerCase().match(rerep)) {
                   key = 'Other Representations';
                 }
+                // Filter Outputs
+                else if (keys[j].toLowerCase().match(out)) {
+                    console.log(keys[j]);
+                    key = key.replace('out_', "");
+                    key = key.replace('Out_', "");
+                    key = key.replace(/\b\w/g, function (l) {
+                      return l.toUpperCase();
+                    });
+                    val = [];
+
+                    for (var x in info[keys[j]]) {
+                      val.push(info[keys[j]][x]);
+                    }
+                  }
 
                 views[key] = {
                   key: key,
                   depth: this.card.depth - 1,
-                  value: this.arrayCast(info[keys[j]])
+                  value: this.arrayCast(val)
                 };
                 if (Array.isArray(info[keys[j]])) {
                   views[key].number = info[keys[j]].length;
@@ -3734,7 +3758,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\n.horizontalBox[data-v-138b9eb8] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\nh1[data-v-138b9eb8] {\n  font-size: 21px;\n  font-weight: 400;\n}\n.disp[data-v-138b9eb8] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  -ms-flex-wrap: nowrap;\n      flex-wrap: nowrap;\n}\n", ""]);
+exports.push([module.i, "\n.horizontalBox[data-v-138b9eb8] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  overflow-x: scroll;\n}\nh1[data-v-138b9eb8] {\n  font-size: 21px;\n  font-weight: 400;\n}\n.disp[data-v-138b9eb8] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n", ""]);
 
 // exports
 
@@ -3790,7 +3814,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "\n.card-header[data-v-3cefdd72] {\n  height: 36px;\n  min-height: 36px;\n  background-color: rgb(240,240,240);\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.card-header h3[data-v-3cefdd72] {\n  font-size: 1em;\n  font-weight: 500;\n  margin: 0px;\n}\n.card-content[data-v-3cefdd72] {\n  padding: 10px 0px 10px 0px;\n}\n.card-content h1[data-v-3cefdd72] {\n  font-size: 1.5em;\n}\n.content[data-v-3cefdd72] {\n  font-size: 12px;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n}\n.content[data-v-3cefdd72]:not(:last-child) {\n  margin-bottom: 5px;\n}\n.textbox[data-v-3cefdd72] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n}\n.textbox p[data-v-3cefdd72] {\n  padding: 0px 12px 0px 12px;\n  margin-bottom: 12px;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n.content p[data-v-3cefdd72] {\n  padding: 0px 12px 0px 12px;\n}\n.extras[data-v-3cefdd72] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-flex-item-align: center;\n      align-self: center;\n  background-color: rgb(250,250,250);\n  height: 15px;\n  text-align: center;\n\n  margin-bottom: 12px;\n}\n.extras p[data-v-3cefdd72] {\n  font-size: 10px;\n}\n.sub-header[data-v-3cefdd72] {\n  margin: 10px;\n}\n.card-footer[data-v-3cefdd72] {\n  height: 36px;\n  min-height: 36px;\n}\n", ""]);
+exports.push([module.i, "\n.card-header[data-v-3cefdd72] {\n  height: 36px;\n  min-height: 36px;\n  background-color: rgb(240,240,240);\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.card-header h3[data-v-3cefdd72] {\n  font-size: 1em;\n  font-weight: 500;\n  margin: 0px;\n}\n.card-content[data-v-3cefdd72] {\n  padding: 10px 0px 10px 0px;\n}\n.card-content h1[data-v-3cefdd72] {\n  font-size: 1.5em;\n}\n.content[data-v-3cefdd72] {\n  font-size: 12px;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n}\n.content[data-v-3cefdd72]:not(:last-child) {\n  margin-bottom: 5px;\n}\n.textbox[data-v-3cefdd72] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n}\n.textbox p[data-v-3cefdd72] {\n  padding: 0px 12px 0px 12px;\n  margin-bottom: 12px;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n.content p[data-v-3cefdd72] {\n  padding: 0px 12px 0px 12px;\n}\n.extras[data-v-3cefdd72] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-flex-item-align: center;\n      align-self: center;\n  background-color: rgb(250,250,250);\n  height: 15px;\n  text-align: center;\n\n  margin-bottom: 12px;\n}\n.extras p[data-v-3cefdd72] {\n  font-size: 10px;\n}\n.sub-header[data-v-3cefdd72] {\n  cursor: pointer;\n  margin: 10px;\n}\n.card-footer[data-v-3cefdd72] {\n  height: 36px;\n  min-height: 36px;\n}\n", ""]);
 
 // exports
 
@@ -4894,8 +4918,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.card.key != 'in') ? _c('header', {
     staticClass: "card-header"
   }, [_c('h3', {
-    staticClass: "card-header-title"
-  }, [_vm._v("\n      " + _vm._s(_vm.title) + "\n    ")]), _vm._v(" "), _c('a', {
+    staticClass: "card-header-title",
+    on: {
+      "click": function($event) {
+        _vm.selectedLayer.item = _vm.main.items
+      }
+    }
+  }, [_vm._v("\n      " + _vm._s(_vm.title) + "\n      " + _vm._s(_vm.card.title) + "\n    ")]), _vm._v(" "), _c('a', {
     staticClass: "button is-small is-inverted",
     on: {
       "click": function($event) {
@@ -4935,7 +4964,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.selectedLayer.item = info.item
         }
       }
-    }, [_vm._v("\n        " + _vm._s(info.item.type) + "\n      ")]) : _vm._e(), _vm._v(" "), (typeof(info.item) === 'string') ? _c('div', {
+    }, [_vm._v("\n        " + _vm._s(info.item.type) + "\n      ")]) : (info.item.hasOwnProperty('title') && (info.item.title != '') && (info.item.title != null)) ? _c('span', {
+      staticClass: "tag sub-header is-info"
+    }, [_vm._v("\n        " + _vm._s(info.item.title) + "\n      ")]) : _vm._e(), _vm._v(" "), (typeof(info.item) === 'string') ? _c('div', {
       staticClass: "textbox"
     }, [_c('p', [_vm._v(_vm._s(info.item))])]) : (typeof(info.item) === 'object') ? _vm._l((info.item.text), function(text) {
       return _c('div', {
@@ -5337,7 +5368,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-header"
   }, [(_vm.layer != undefined) ? _c('h3', {
     staticClass: "card-header-title"
-  }, [_vm._v("\n        " + _vm._s(_vm.layer.title) + "\n        " + _vm._s(_vm.layer.type) + "\n      ")]) : _vm._e(), _vm._v(" "), (_vm.layer != undefined) ? _c('h6', [_vm._v("\n        " + _vm._s(_vm.layer.layerType) + "\n      ")]) : _vm._e(), _vm._v(" "), _c('a', {
+  }, [_vm._v("\n        " + _vm._s(_vm.layer.title) + "\n        " + _vm._s(_vm.layer.type) + "\n      ")]) : _vm._e(), _vm._v(" "), (_vm.layer != undefined) ? _c('h6', [_vm._v("\n        " + _vm._s(_vm.layer["@class"]) + "\n      ")]) : _vm._e(), _vm._v(" "), _c('a', {
     staticClass: "card-header-icon",
     on: {
       "click": function($event) {
