@@ -4965,7 +4965,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("\n        " + _vm._s(info.item.type) + "\n      ")]) : (info.item.hasOwnProperty('title') && (info.item.title != '') && (info.item.title != null)) ? _c('span', {
-      staticClass: "tag sub-header is-info"
+      staticClass: "tag sub-header is-info",
+      on: {
+        "click": function($event) {
+          _vm.selectedLayer.item = info.item
+        }
+      }
     }, [_vm._v("\n        " + _vm._s(info.item.title) + "\n      ")]) : _vm._e(), _vm._v(" "), (typeof(info.item) === 'string') ? _c('div', {
       staticClass: "textbox"
     }, [_c('p', [_vm._v(_vm._s(info.item))])]) : (typeof(info.item) === 'object') ? _vm._l((info.item.text), function(text) {

@@ -23,7 +23,7 @@
         @click="selectedLayer.item = info.item">
           {{info.item.type}}
         </span>
-        <span class="tag sub-header is-info" v-else-if="info.item.hasOwnProperty('title') && (info.item.title != '') && (info.item.title != null)">
+        <span class="tag sub-header is-info" v-else-if="info.item.hasOwnProperty('title') && (info.item.title != '') && (info.item.title != null)" @click="selectedLayer.item = info.item">
           {{ info.item.title }}
         </span>
         <!-- Text -->
