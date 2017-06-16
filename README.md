@@ -1,14 +1,19 @@
 # Cast
 
 # Running OrientDB Locally
+<<<<<<< HEAD
 In terminal change directory into orientdb-community-2.2.18/bin/ then run the server.sh.
 
 Note: You can look at how OrientDB works by going to localhost:2480. You can login with root, waffl3c0pt3r
+=======
+In terminal change directory into orientdb-community-2.2.18/bin/ then run the server.sh
+>>>>>>> origin/master
 
 # Running the Website
 In terminal change directory into concept. Next run the command php artisan serve.
 
 # Checking everything out
+<<<<<<< HEAD
 Now go to localhost:8000 to visit the site! The main site isn't really functioning so head on over to documentation and you should find some interesting stuff!
 
 To figure out what is going on...
@@ -42,3 +47,8 @@ Third will be UI presentation. The UI will have specific views depending on the 
 
 
 View Filters can be created by a user who knows which set of properties they want to look at!!! So imagine that you're a UX person, then you will only see info related to UX. Or if you're a Front-end engineer, you see the set of problems related to front-end and the framework you are using...
+=======
+Now go to localhost:8000 to visit the site! The main site isn't really functioning but head on over to documentation and you should find some interesting stuff!
+
+Click on the tab headers eg. Basic or More information to explore deeper.
+>>>>>>> origin/master
