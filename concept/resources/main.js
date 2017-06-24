@@ -4,7 +4,6 @@ import Doc from './documentation.vue'
 
 import '../node_modules/bulma/css/bulma.css'
 
-import {isEmpty} from "./common-functions.js"
 
 window.Event = new Vue();
 

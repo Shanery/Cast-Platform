@@ -135,7 +135,7 @@ export default {
 <style scoped>
   .horizontalBox {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
     flex-grow: 1;
     overflow-x: scroll;
@@ -151,6 +151,7 @@ export default {
     flex-direction: column;
     align-items: stretch;
     flex-grow: 1;
+
   }
 </style>
 
